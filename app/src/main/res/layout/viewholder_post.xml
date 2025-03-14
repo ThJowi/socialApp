@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_weight="1"
             android:paddingStart="10dp">
             <TextView
                 android:id="@+id/authorTextView"
@@ -38,13 +39,13 @@
             <ImageView
                 android:id="@+id/mediaImage"
                 android:layout_marginTop="10dp"
-                android:layout_width="196dp"
-                android:layout_height="196dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:adjustViewBounds="true"/>
             <LinearLayout
                 android:id="@+id/likeLinearLayout"
                 android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <ImageView
@@ -60,7 +61,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_gravity="center_vertical"
-                    android:text="200K"/>
+                    android:layout_marginEnd="20dp"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:id="@+id/trashImageView"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/trash" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

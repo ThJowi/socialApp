@@ -125,6 +125,7 @@ public class NewPostFragment extends Fragment {
             Glide.with(this).load(media.uri).into((ImageView)
                     view.findViewById(R.id.previsualizacion));
         });
+        appViewModel.setMediaSeleccionado(null, null);
     }
 
     private void publicar() {
@@ -301,7 +302,7 @@ public class NewPostFragment extends Fragment {
     private void tomarFoto() {
         try {
             mediaUri = FileProvider.getUriForFile(requireContext(),
-                    "com.example.socialappwrite" + ".fileprovider",
+                    "com.example.socialapp" + ".fileprovider",
                     File.createTempFile("img", ".jpg",
                             requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES))
             );
@@ -311,7 +312,7 @@ public class NewPostFragment extends Fragment {
     private void tomarVideo() {
         try {
             mediaUri = FileProvider.getUriForFile(requireContext(),
-                    "com.example.socialappwrite" + ".fileprovider",
+                    "com.example.socialapp" + ".fileprovider",
                     File.createTempFile("vid", ".mp4",
                             requireContext().getExternalFilesDir(Environment.DIRECTORY_MOVIES)));
             camaraVideos.launch(mediaUri);
