@@ -128,8 +128,8 @@ public class homeFragment extends Fragment {
 
     class PostViewHolder extends RecyclerView.ViewHolder
     {
-        ImageView authorPhotoImageView, likeImageView, mediaImageView, trashImageView;
-        TextView authorTextView, contentTextView, numLikesTextView;
+        ImageView authorPhotoImageView, likeImageView, mediaImageView, trashImageView, commentImageView;
+        TextView authorTextView, contentTextView, numLikesTextView, numCommTextView;
         PostViewHolder(@NonNull View itemView) {
             super(itemView);
             authorPhotoImageView = itemView.findViewById(R.id.authorPhotoImageView);
@@ -139,6 +139,8 @@ public class homeFragment extends Fragment {
             contentTextView = itemView.findViewById(R.id.contentTextView);
             numLikesTextView = itemView.findViewById(R.id.numLikesTextView);
             trashImageView = itemView.findViewById(R.id.trashImageView);
+            commentImageView = itemView.findViewById(R.id.commentImageView);
+            numCommTextView = itemView.findViewById(R.id.numCommTextView);
         }
     }
 
@@ -175,6 +177,32 @@ public class homeFragment extends Fragment {
             holder.likeImageView.setOnClickListener(view ->
             {
                 gustarPost(likes, post);
+            });
+
+            if (post.get("mediaUrl") != null) {
+                holder.mediaImageView.setVisibility(View.VISIBLE);
+                if ("audio".equals(post.get("mediaType").toString())) {
+                    Glide.with(requireView()).load(R.drawable.audio).centerCrop().into(holder.mediaImageView);
+                } else {
+                    Glide.with(requireView()).load(post.get("mediaUrl").toString()).centerCrop().into
+                            (holder.mediaImageView);
+                }
+                holder.mediaImageView.setOnClickListener(view -> {
+                    appViewModel.postSeleccionado.setValue(post);
+                    navController.navigate(R.id.mediaFragment);
+                });
+            } else {
+                holder.mediaImageView.setVisibility(View.GONE);
+            }
+
+            List<String> comments = (List<String>) post.get("comments");
+            String postId = post.get("$id").toString();
+            holder.numCommTextView.setText(String.valueOf(comments.size()));
+            holder.commentImageView.setOnClickListener(view ->
+            {
+                Bundle bundle = new Bundle();
+                bundle.putString("postId", postId);
+                navController.navigate(R.id.newPostFragment, bundle);
             });
 
             String postAuthorId = post.get("uid").toString();

@@ -55,6 +55,8 @@ public class NewPostFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private boolean isComment = false;
+    private String parentPostId = null;
 
     private String mParam1;
     private String mParam2;
@@ -106,6 +108,14 @@ public class NewPostFragment extends Fragment {
                 .setProject(getString(R.string.APPWRITE_PROJECT_ID));
         publishButton = view.findViewById(R.id.publishButton);
         postContentEditText = view.findViewById(R.id.postContentEditText);
+        Bundle args = getArguments();
+        if (args != null && args.containsKey("postId")) {
+            isComment = true;
+            parentPostId = args.getString("postId");
+
+            postContentEditText.setHint("¿Algun problema?");
+            publishButton.setText("Comment");
+        }
         publishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,6 +176,7 @@ public class NewPostFragment extends Fragment {
         data.put("content", content);
         data.put("mediaType", mediaTipo);
         data.put("mediaUrl", mediaUrl);
+        if (isComment) data.put("parentId", parentPostId);
         try {
             databases.createDocument(
                     getString(R.string.APPWRITE_DATABASE_ID),
