@@ -102,15 +102,16 @@ public class homeFragment extends Fragment {
         adapter = new PostsAdapter();
         postsRecyclerView.setAdapter(adapter);
     }
+
     void obtenerPosts()
     {
         Databases databases = new Databases(client);
         Handler mainHandler = new Handler(Looper.getMainLooper());
         try {
             databases.listDocuments(
-                    getString(R.string.APPWRITE_DATABASE_ID), // databaseId
-                    getString(R.string.APPWRITE_POSTS_COLLECTION_ID), // collectionId
-                    new ArrayList<>(), // queries (optional)
+                    getString(R.string.APPWRITE_DATABASE_ID),
+                    getString(R.string.APPWRITE_POSTS_COLLECTION_ID),
+                    new ArrayList<>(),
                     new CoroutineCallback<>((result, error) -> {
                         if (error != null) {
                             Snackbar.make(requireView(), "Error al obtener los posts: "
@@ -149,8 +150,7 @@ public class homeFragment extends Fragment {
 
         @NonNull
         @Override
-        public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int
-                viewType) {
+        public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return new
                     PostViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_post, parent, false));
         }

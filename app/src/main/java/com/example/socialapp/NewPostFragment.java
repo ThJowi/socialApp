@@ -50,6 +50,8 @@ import io.appwrite.models.User;
 import io.appwrite.services.Account;
 import io.appwrite.services.Databases;
 import io.appwrite.services.Storage;
+import io.appwrite.Query;
+
 
 public class NewPostFragment extends Fragment {
 
